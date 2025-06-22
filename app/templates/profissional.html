@@ -8,18 +8,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to right, #e4f2ff, #fbeaff);
+      background: linear-gradient(to right, #dbeeff, #b3d4f7);
       font-family: 'Quicksand', sans-serif;
     }
 
     .navbar {
-      background-color: #7db9e8;
+      background: linear-gradient(90deg, #5ca4e2, #7fc1f9);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      padding: 15px 0;
     }
 
     .navbar-brand {
       font-family: 'Fredoka One', cursive;
       color: #fff !important;
       font-size: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .header-title {
@@ -27,7 +32,7 @@
       margin-top: 40px;
       font-size: 32px;
       font-weight: bold;
-      color: #4a6b6b;
+      color: #2e5c7a;
     }
 
     .dashboard {
@@ -42,14 +47,15 @@
     .card-option {
       border-radius: 25px;
       padding: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(0, 60, 100, 0.2);
       text-align: center;
       transition: transform 0.3s ease;
-      background: #fff;
+      background: #e2f0fb;
     }
 
     .card-option:hover {
       transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(0, 60, 100, 0.3);
     }
 
     .card-option img {
@@ -59,25 +65,28 @@
 
     .card-option h5 {
       font-size: 1.1rem;
-      color: #444;
+      color: #2b4e63;
       font-weight: bold;
     }
 
     .footer {
       text-align: center;
       font-size: 14px;
-      color: #888;
+      color: #4c7ba0;
       margin: 40px 0 20px;
     }
 
-    /* Cores diferentes para cada card */
-    .card-option:nth-child(1) { background-color: #fef4e8; }
-    .card-option:nth-child(2) { background-color: #e6f7fa; }
-    .card-option:nth-child(3) { background-color: #fce4ec; }
-    .card-option:nth-child(4) { background-color: #e8f5e9; }
-    .card-option:nth-child(5) { background-color: #fff3e0; }
-    .card-option:nth-child(6) { background-color: #ede7f6; }
-    .card-option:nth-child(7) { background-color: #fff8e1; }
+    /* Variações em tons de azul para cada card */
+    .card-option:nth-child(1) { background-color: #e1f1ff; }
+    .card-option:nth-child(2) { background-color: #d0e7fc; }
+    .card-option:nth-child(3) { background-color: #c0ddf9; }
+    .card-option:nth-child(4) { background-color: #b0d3f6; }
+    .card-option:nth-child(5) { background-color: #a0c9f3; }
+    .card-option:nth-child(6) { background-color: #90bff0; }
+    .card-option:nth-child(7) { background-color: #80b5ed; }
+    .card-option:nth-child(8) { background-color: #70abea; }
+    .card-option:nth-child(9) { background-color: #66a3e0; }
+
   </style>
 </head>
 <body>
@@ -106,7 +115,7 @@
     </div>
 
     <div class="card-option">
-      <img src="data:image/jpeg;base64,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" alt="Diagnósticos">
+      <img src="https://www.creativefabrica.com/wp-content/uploads/2022/12/08/Kawaii-Chibi-Brain-In-A-Magnifying-Glass-50990726-1-1.png" alt="Diagnósticos">
       <h5>Diagnósticos</h5>
     </div>
 
@@ -117,12 +126,17 @@
 
     <div class="card-option">
       <img src="https://w7.pngwing.com/pngs/526/795/png-transparent-warning-light-cartoon-warning-light-light.png" alt="Alertas">
-      <h5>Alertas</h5>
+      <h5>Enviar Alertas</h5>
     </div>
 
     <div class="card-option">
       <img src="https://img.freepik.com/fotos-premium/lista-de-verificacao-de-desenhos-animados-e-ilustracao-do-quadro-de-transferencias-com-marcas-de-verificacao-e-simbolo-medico_1292377-21248.jpg" alt="Histórico">
       <h5>Histórico</h5>
+    </div>
+
+    <div class="card-option">
+      <img src="https://th.bing.com/th/id/R.48a70ef6537fda605558e03f9a463929?rik=U8Wseh3TJSmSqQ&pid=ImgRaw&r=0" alt="Relatório Clínico">
+      <h5>Gerar Relatório Clínico</h5>
     </div>
 
   </div>
