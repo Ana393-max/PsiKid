@@ -1,29 +1,28 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.models import User
-from .models import Usuario, Responsavel, Crianca, Transtorno, Diagnostico, Sessao, Alerta
+from .models import Responsavel, Crianca, Transtorno, Diagnostico, Sessao, Alerta, Perfil
 
 # Inline para mostrar o perfil extendido Usuario junto ao User padrão
-class UsuarioInline(admin.StackedInline):
-    model = Usuario
+class PerfilInline(admin.StackedInline):
+    model = Perfil
     can_delete = False
     verbose_name_plural = 'Perfil do Usuário'
 
-# Custom UserAdmin para adicionar o inline Usuario
+# Custom UserAdmin para adicionar o inline Perfil
 class UserAdmin(DjangoUserAdmin):
-    inlines = (UsuarioInline,)
+    inlines = (PerfilInline,)
 
 # Registrar o User padrão com o UserAdmin customizado
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
-# Registrar o modelo Usuario separadamente, caso queira
-@admin.register(Usuario)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['user', 'perfil']
-    list_filter = ['perfil']
-    search_fields = ['user__username', 'perfil']
-
+# Registrar o modelo Perfil separadamente (opcional)
+@admin.register(Perfil)
+class PerfilAdmin(admin.ModelAdmin):
+    list_display = ['user', 'tipo']
+    list_filter = ['tipo']
+    search_fields = ['user__username', 'tipo']
 # Demais modelos (sem Cidade, ajustado conforme revisão anterior)
 @admin.register(Responsavel)
 class ResponsavelAdmin(admin.ModelAdmin):

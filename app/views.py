@@ -1,13 +1,36 @@
-from django.shortcuts import render
 from django.views import View
-from .models import Responsavel, Transtorno, Crianca, Diagnostico, Sessao, Alerta
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .models import Responsavel, Transtorno, Crianca, Diagnostico, Sessao, Alerta, Perfil
+from django.contrib import messages
 
-class IndexView(View):
-    def get(self, request, *args, **kwargs):
-        #criancas = Crianca.objects.select_related('responsavel').all()
-        #return render(request, 'index.html', {'criancas': criancas})
-        return render(request, 'index.html')
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'index.html')  # index.html é sua página de login
 
+    def post(self, request):
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        # Tenta autenticar com base no username (que deve ser o e-mail)
+        user = authenticate(request, username=email, password=senha)
+
+        if user is not None:
+            login(request, user)
+            try:
+                perfil = Perfil.objects.get(user=user)
+                if perfil.tipo == 'profissional':
+                    return redirect('profissional_dashboard')  # nome da URL
+                elif perfil.tipo == 'responsavel':
+                    return redirect('responsaveis')  # nome da URL
+            except Perfil.DoesNotExist:
+                messages.error(request, 'Usuário sem perfil definido.')
+                return redirect('login')
+        else:
+            messages.error(request, 'E-mail ou senha incorretos.')
+            return redirect('login')
+
+    
 class ResponsaveisView(View):
     def get(self, request, *args, **kwargs):
         # Removido select_related('cidade') pois cidade é CharField

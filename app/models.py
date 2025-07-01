@@ -2,19 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # RF01 – Extensão de autenticação do usuário
-class Usuario(models.Model):
-    PERFIS = [
-        ('Profissional', 'Profissional'),
-        ('Responsavel', 'Responsável'),
-    ]
+class Perfil(models.Model):
+    TIPOS = (
+        ('profissional', 'Profissional'),
+        ('responsavel', 'Responsável'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    perfil = models.CharField(max_length=20, choices=PERFIS)
-    # Relacionamento genérico com pessoa (Responsável ou Profissional)
-    # Pode ser usado se você quiser fazer herança ou polimorfismo
-    # pessoa = models.ForeignKey('Pessoa', on_delete=models.SET_NULL, null=True, blank=True)
+    tipo = models.CharField(max_length=15, choices=TIPOS)
 
     def __str__(self):
-        return f"{self.user.username} ({self.perfil})"
+        return f"{self.user.username} - {self.get_tipo_display()}"
 
 
 # RF03 – Responsável
@@ -64,7 +62,7 @@ class Transtorno(models.Model):
 class Diagnostico(models.Model):
     crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE, related_name='diagnosticos')
     transtorno = models.ForeignKey(Transtorno, on_delete=models.CASCADE)
-    profissional = models.ForeignKey(Usuario, limit_choices_to={'perfil': 'Profissional'}, on_delete=models.SET_NULL, null=True)
+    profissional = models.ForeignKey(User, limit_choices_to={'perfil__tipo': 'profissional'}, on_delete=models.SET_NULL, null=True)
     data = models.DateField()
     observacoes = models.TextField(null=True, blank=True)
 
@@ -80,7 +78,7 @@ class Sessao(models.Model):
         ('Cancelada', 'Cancelada'),
     ]
     crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE, related_name='sessoes')
-    profissional = models.ForeignKey(Usuario, limit_choices_to={'perfil': 'Profissional'}, on_delete=models.SET_NULL, null=True)
+    profissional = models.ForeignKey(User, limit_choices_to={'perfil__tipo': 'profissional'}, on_delete=models.SET_NULL, null=True)
     data = models.DateTimeField()
     anotacoes = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS)

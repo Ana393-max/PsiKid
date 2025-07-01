@@ -2,72 +2,90 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PsiKid - Página Inicial</title>
-  <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - PsiKid</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #dbeeff, #b3d4f7);
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-title {
+      text-align: center;
+      font-family: 'Fredoka One', cursive;
+      font-size: 28px;
+      color: #2e5c7a;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border-radius: 15px;
+    }
+
+    .btn-login {
+      background-color: #5ca4e2;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .btn-login:hover {
+      background-color: #4b94d1;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #4c7ba0;
+      margin-top: 40px;
+    }
+
+    .alert {
+      border-radius: 15px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-    <a class="navbar-brand" href="/">PsiKid</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/">Administração</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'criancas' %}">Crianças</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'responsaveis' %}">Responsáveis</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'sessoes' %}">Sessões</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'alertas' %}">Alertas</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="login-container">
+    <div class="login-title">PsiKid 🧠</div>
 
-  <!-- Conteúdo principal -->
-  <div class="container mt-5">
-    <div class="jumbotron text-center bg-white shadow">
-      <h1 class="display-4">Bem-vindo ao PsiKid 🧠✨</h1>
-      <p class="lead">Sistema de Acompanhamento Psicológico Infantil</p>
-      <hr class="my-4">
-      <p>Facilitando o registro clínico e a comunicação entre profissionais e responsáveis.</p>
-    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
 
-    <!-- Lista de crianças -->
-    <div class="mt-4">
-      <h3 class="text-success">Crianças cadastradas no sistema:</h3>
-      <table class="table table-bordered mt-3 bg-white">
-        <thead class="thead-light">
-          <tr>
-            <th>Nome</th>
-            <th>Data de Nascimento</th>
-            <th>Responsável</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for crianca in criancas %}
-          <tr>
-            <td>{{ crianca.nome }}</td>
-            <td>{{ crianca.data_nascimento|date:"d/m/Y" }}</td>
-            <td>{{ crianca.responsavel.nome }}</td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="3" class="text-center">Nenhuma criança cadastrada.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" name="senha" required>
+      </div>
+      <button type="submit" class="btn btn-login btn-block">Entrar</button>
+    </form>
   </div>
 
-  <!-- Scripts Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <div class="footer">&copy; 2025 PsiKid • Ana Luisa Vieira</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
