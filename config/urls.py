@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from app.views import (
-    IndexView,
+    LoginView, 
     ResponsaveisView,
     TranstornosView,
     CriancasView,
@@ -15,11 +15,8 @@ from app.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # RF01 - Autenticação (visual por enquanto)
-    path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
-
-    # Página inicial
-    path('', IndexView.as_view(), name='index'),
+    # RF01 Página inicial = login
+    path('', LoginView.as_view(), name='index'),
 
     # RF02 - Crianças
     path('criancas/', CriancasView.as_view(), name='criancas'),
