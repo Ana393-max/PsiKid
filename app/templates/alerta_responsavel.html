@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Alertas para Responsáveis</title></head>
+<body>
+    <h2>Alertas por Responsável</h2>
+    {% for responsavel in responsaveis %}
+        <div class="card" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            <h4>{{ responsavel.nome }}</h4>
+            <ul>
+                {% for alerta in responsavel.alerta_set.all %}
+                    <li>{{ alerta.mensagem }} — {{ alerta.data }}</li>
+                {% empty %}
+                    <li>Nenhum alerta para este responsável.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    <a href="/profissional/">Voltar</a>
+</body>
+</html>

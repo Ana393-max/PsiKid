@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Histórico - PsiKid</title>
+  <title>Relatórios Clínicos - PsiKid</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&display=swap" rel="stylesheet" />
   <style>
@@ -43,9 +43,6 @@
       padding: 20px;
       color: #2b4e63;
     }
-    ul {
-      padding-left: 20px;
-    }
   </style>
 </head>
 <body>
@@ -53,33 +50,17 @@
     <a class="navbar-brand mx-auto" href="#">PsiKid 🧠</a>
   </nav>
 
-  <div class="header-title">Histórico por Criança</div>
+  <div class="header-title">Relatórios Clínicos</div>
 
   <div class="container">
-    {% for crianca in historicos %}
+    {% for relatorio in relatorios %}
       <div class="card">
-        <h3>{{ crianca.nome }}</h3>
-
-        <p><strong>Diagnósticos:</strong></p>
-        <ul>
-          {% for diag in crianca.diagnostico_set.all %}
-            <li>{{ diag.data }} — {{ diag.descricao }}</li>
-          {% empty %}
-            <li>Nenhum diagnóstico.</li>
-          {% endfor %}
-        </ul>
-
-        <p><strong>Sessões:</strong></p>
-        <ul>
-          {% for sessao in crianca.sessao_set.all %}
-            <li>{{ sessao.data }} — {{ sessao.observacoes }}</li>
-          {% empty %}
-            <li>Nenhuma sessão.</li>
-          {% endfor %}
-        </ul>
+        <p><strong>Criança:</strong> {{ relatorio.crianca.nome }}</p>
+        <p><strong>Data:</strong> {{ relatorio.data }}</p>
+        <p><strong>Descrição:</strong> {{ relatorio.descricao }}</p>
       </div>
     {% empty %}
-      <p>Nenhum histórico encontrado.</p>
+      <p>Nenhum relatório encontrado.</p>
     {% endfor %}
   </div>
 </body>

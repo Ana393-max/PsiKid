@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',  # seu app principal
+    'app', # seu app principal
 ]
 
 # Middleware padrão do Django
@@ -96,6 +96,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "app/static/"),
 ]
-
-# Campo padrão para chaves primárias
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

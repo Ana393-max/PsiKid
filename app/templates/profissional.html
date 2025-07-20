@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel do Profissional - PsiKid</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&display=swap" rel="stylesheet">
@@ -51,6 +51,8 @@
       text-align: center;
       transition: transform 0.3s ease;
       background: #e2f0fb;
+      text-decoration: none;
+      color: inherit;
     }
 
     .card-option:hover {
@@ -76,7 +78,6 @@
       margin: 40px 0 20px;
     }
 
-    /* Variações em tons de azul para cada card */
     .card-option:nth-child(1) { background-color: #e1f1ff; }
     .card-option:nth-child(2) { background-color: #d0e7fc; }
     .card-option:nth-child(3) { background-color: #c0ddf9; }
@@ -84,9 +85,6 @@
     .card-option:nth-child(5) { background-color: #a0c9f3; }
     .card-option:nth-child(6) { background-color: #90bff0; }
     .card-option:nth-child(7) { background-color: #80b5ed; }
-    .card-option:nth-child(8) { background-color: #70abea; }
-    .card-option:nth-child(9) { background-color: #66a3e0; }
-
   </style>
 </head>
 <body>
@@ -99,45 +97,40 @@
 
   <div class="dashboard">
 
-    <div class="card-option">
+    <a href="{% url 'criancas' %}" class="card-option">
       <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/18975848-criancas-fofas-personagem-de-cabeca-de-menino-sorrindo-ilustracao-em-de-desenho-animado-de-avatar-vetor.jpg" alt="Criança">
-      <h5>Cadastrar Crianças</h5>
-    </div>
+      <h5>Crianças</h5>
+    </a>
 
-    <div class="card-option">
-      <img src="https://i.pinimg.com/736x/8c/e7/10/8ce7103728796e1376d089971328ebfe.jpg" alt="Responsáveis">
-      <h5> Cadastrar Responsáveis</h5>
-    </div>
-
-    <div class="card-option">
+    <a href="{% url 'lista_transtornos' %}" class="card-option">
       <img src="https://img.freepik.com/vetores-premium/personagem-do-cerebro-triste-depressao-esgotamento-letargia-cansaco-desbotamento-ilustracao-vetorial_502320-556.jpg?w=360" alt="Transtornos">
       <h5>Transtornos</h5>
-    </div>
+    </a>
 
-    <div class="card-option">
+    <a href="{% url 'diagnosticos' %}" class="card-option">
       <img src="https://www.creativefabrica.com/wp-content/uploads/2022/12/08/Kawaii-Chibi-Brain-In-A-Magnifying-Glass-50990726-1-1.png" alt="Diagnósticos">
       <h5>Diagnósticos</h5>
-    </div>
+    </a>
 
-    <div class="card-option">
-      <img src="https://www.psicologo.com.br/wp-content/uploads/terapia-cognitivo-comportamental-tcc-psicologia-1024x682.jpg" alt="Sessões">
+    <a href="{% url 'sessoes' %}" class="card-option">
+      <img src="https://img.freepik.com/fotos-gratis/psicologo-com-paciente-em-sessao-de-terapia_23-2149089431.jpg?w=826&t=st=1719168716~exp=1719169316~hmac=cbde8e294b8582f30d0552c9e5d7f1e46573a4ff6b8999d2462ea9e46bcdf2b1" alt="Sessões">
       <h5>Sessões</h5>
-    </div>
+    </a>
 
-    <div class="card-option">
+    <a href="{% url 'alertas' %}" class="card-option">
       <img src="https://w7.pngwing.com/pngs/526/795/png-transparent-warning-light-cartoon-warning-light-light.png" alt="Alertas">
       <h5>Enviar Alertas</h5>
-    </div>
+    </a>
 
-    <div class="card-option">
+    <a href="{% url 'historicos' %}" class="card-option">
       <img src="https://img.freepik.com/fotos-premium/lista-de-verificacao-de-desenhos-animados-e-ilustracao-do-quadro-de-transferencias-com-marcas-de-verificacao-e-simbolo-medico_1292377-21248.jpg" alt="Histórico">
       <h5>Histórico</h5>
-    </div>
+    </a>
 
-    <div class="card-option">
+    <a href="{% url 'relatorios_clinicos' %}" class="card-option">
       <img src="https://th.bing.com/th/id/R.48a70ef6537fda605558e03f9a463929?rik=U8Wseh3TJSmSqQ&pid=ImgRaw&r=0" alt="Relatório Clínico">
-      <h5>Gerar Relatório Clínico</h5>
-    </div>
+      <h5>Relatório Clínico</h5>
+    </a>
 
   </div>
 
