@@ -10,6 +10,7 @@
     body {
       background: linear-gradient(to right, #dbeeff, #b3d4f7);
       font-family: 'Quicksand', sans-serif;
+      padding-top: 90px; /* espaço para navbar fixa */
     }
     .navbar {
       background: linear-gradient(90deg, #5ca4e2, #7fc1f9);
@@ -21,38 +22,73 @@
     .navbar-brand {
       font-family: 'Fredoka One', cursive;
       color: #fff !important;
-      font-size: 30px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      font-size: 24px;
+      margin-left: 20px;
+    }
+    .navbar-text {
+      font-family: 'Fredoka One', cursive;
+      font-size: 24px;
+    }
+    .navbar-nav .nav-link {
+      color: #f0f0f0 !important;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 10px 15px;
+      transition: color 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #d0e7fc !important;
     }
     .header-title {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 20px;
       font-size: 32px;
       font-weight: bold;
       color: #2e5c7a;
     }
-    .container {
-      margin-top: 30px;
-      max-width: 900px;
+    .container-custom {
+      max-width: 1000px;
+      margin: 30px auto 60px auto; /* centraliza horizontalmente */
+      padding: 0 20px;
     }
     .card {
       border-radius: 15px;
       box-shadow: 0 6px 20px rgba(0, 60, 100, 0.2);
-      background: #e2f0fb;
+      background: #ffffff;
       margin-bottom: 20px;
       padding: 20px;
       color: #2b4e63;
     }
+    .card p {
+      font-size: 1rem;
+      margin: 8px 0;
+    }
+    .card strong {
+      color: #174b72;
+    }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand mx-auto" href="#">PsiKid 🧠</a>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="{% url 'profissional' %}">← Profissional</a>
+    <span class="navbar-text mx-auto text-white font-weight-bold">PsiKid 🧠</span>
+    <div class="collapse navbar-collapse justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'criancas' %}">Crianças</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'diagnosticos' %}">Diagnósticos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'sessoes' %}">Sessões</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'lista_transtornos' %}">Transtornos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'alertas' %}">Alertas</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'historicos' %}">Históricos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'relatorios_clinicos' %}">Relatórios Clínicos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/">Administração</a></li>
+      </ul>
+    </div>
   </nav>
 
   <div class="header-title">Relatórios Clínicos</div>
 
-  <div class="container">
+  <div class="container-custom">
     {% for relatorio in relatorios %}
       <div class="card">
         <p><strong>Criança:</strong> {{ relatorio.crianca.nome }}</p>
@@ -60,8 +96,12 @@
         <p><strong>Descrição:</strong> {{ relatorio.descricao }}</p>
       </div>
     {% empty %}
-      <p>Nenhum relatório encontrado.</p>
+      <div class="card">
+        <p>Nenhum relatório encontrado.</p>
+      </div>
     {% endfor %}
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@
     body {
       background: linear-gradient(to right, #dbeeff, #b3d4f7);
       font-family: 'Quicksand', sans-serif;
+      padding-top: 90px;
     }
     .navbar {
       background: linear-gradient(90deg, #5ca4e2, #7fc1f9);
@@ -21,47 +22,120 @@
     .navbar-brand {
       font-family: 'Fredoka One', cursive;
       color: #fff !important;
-      font-size: 30px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      font-size: 24px;
+      margin-left: 20px;
+    }
+    .navbar-text {
+      font-family: 'Fredoka One', cursive;
+      font-size: 24px;
+    }
+    .navbar-nav .nav-link {
+      color: #f0f0f0 !important;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 10px 15px;
+      transition: color 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #d0e7fc !important;
     }
     .header-title {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 30px;
       font-size: 32px;
       font-weight: bold;
       color: #2e5c7a;
     }
-    .container {
-      margin-top: 30px;
-      max-width: 900px;
+    .container-custom {
+      max-width: 1100px;
+      margin: 30px auto 60px auto; /* margem superior 30px, automática nas laterais (centralizado), inferior 60px */
+      padding: 0 20px;
+    }
+    table {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,60,100,0.15);
+      overflow: hidden;
+      width: 100%;
+    }
+    thead {
+      background: #5ca4e2;
+      color: white;
+    }
+    thead th {
+      font-weight: 600;
+      text-align: center;
+      padding: 15px;
+    }
+    tbody td {
+      padding: 15px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 500;
+      color: #2b4e63;
+    }
+    tbody tr:hover {
+      background-color: #e1f1ff;
+      cursor: pointer;
     }
     .card {
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0, 60, 100, 0.2);
-      background: #e2f0fb;
-      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,60,100,0.15);
+      background: white;
       padding: 20px;
+      margin-top: 30px;
+      text-align: center;
       color: #2b4e63;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand mx-auto" href="#">PsiKid 🧠</a>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="{% url 'profissional' %}">← Profissional</a>
+    <span class="navbar-text mx-auto text-white font-weight-bold">PsiKid 🧠</span>
+    <div class="collapse navbar-collapse justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'criancas' %}">Crianças</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'diagnosticos' %}">Diagnósticos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'sessoes' %}">Sessões</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'lista_transtornos' %}">Transtornos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'alertas' %}">Alertas</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'historicos' %}">Históricos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'relatorios_clinicos' %}">Relatórios Clínicos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/">Administração</a></li>
+      </ul>
+    </div>
   </nav>
 
   <div class="header-title">Alertas Gerais</div>
 
-  <div class="container">
-    {% for alerta in alertas %}
-      <div class="card">
-        <p><strong>Mensagem:</strong> {{ alerta.mensagem }}</p>
-        <p><strong>Data:</strong> {{ alerta.data }}</p>
-        <p><strong>Responsável:</strong> {{ alerta.responsavel.nome }}</p>
+  <div class="container-custom">
+    {% if alertas %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Mensagem</th>
+            <th>Data</th>
+            <th>Responsável</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for alerta in alertas %}
+          <tr>
+            <td>{{ alerta.mensagem }}</td>
+            <td>{{ alerta.data }}</td>
+            <td>{{ alerta.responsavel.nome }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="card mt-4">
+        <p class="mb-0">Nenhum alerta encontrado.</p>
       </div>
-    {% empty %}
-      <p>Nenhum alerta encontrado.</p>
-    {% endfor %}
+    {% endif %}
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

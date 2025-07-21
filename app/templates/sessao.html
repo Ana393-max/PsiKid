@@ -6,20 +6,33 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand&display=swap" rel="stylesheet" />
   <style>
-    body { background: linear-gradient(to right, #dbeeff, #b3d4f7); font-family: 'Quicksand', sans-serif; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(to right, #dbeeff, #b3d4f7);
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding-top: 90px; /* espaço para navbar fixa */
+    }
+
     .navbar {
       background: linear-gradient(90deg, #5ca4e2, #7fc1f9);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
       padding: 15px 0;
     }
+
     .navbar-brand {
       font-family: 'Fredoka One', cursive;
       color: #fff !important;
-      font-size: 30px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      font-size: 24px;
+      margin-left: 20px;
     }
+
+    .navbar-text {
+      font-family: 'Fredoka One', cursive;
+      font-size: 24px;
+    }
+
     .navbar-nav .nav-link {
       color: #f0f0f0 !important;
       font-weight: 600;
@@ -27,33 +40,42 @@
       padding: 10px 15px;
       transition: color 0.3s ease;
     }
-    .navbar-nav .nav-link:hover { color: #d0e7fc !important; }
+
+    .navbar-nav .nav-link:hover {
+      color: #d0e7fc !important;
+    }
+
     .container-custom {
       max-width: 1100px;
-      margin: 40px auto 80px;
+      margin: 0 auto 80px;
       padding: 0 20px;
     }
+
     h2 {
       color: #2e5c7a;
       font-weight: 700;
       margin-bottom: 25px;
       text-align: center;
     }
+
     table {
       background: white;
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0,60,100,0.15);
+      box-shadow: 0 6px 20px rgba(0, 60, 100, 0.15);
       overflow: hidden;
     }
+
     thead {
       background: #5ca4e2;
       color: white;
     }
+
     thead th {
       font-weight: 600;
       text-align: center;
       padding: 15px;
     }
+
     tbody td {
       padding: 15px;
       text-align: center;
@@ -61,10 +83,12 @@
       font-weight: 500;
       color: #2b4e63;
     }
+
     tbody tr:hover {
       background-color: #e1f1ff;
       cursor: pointer;
     }
+
     .btn-info {
       font-weight: 600;
       padding: 5px 12px;
@@ -74,8 +98,9 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand mx-auto" href="{% url 'profissional' %}">PsiKid 🧠</a>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="{% url 'profissional' %}">← Profissional</a>
+    <span class="navbar-text mx-auto text-white font-weight-bold">PsiKid 🧠</span>
     <div class="collapse navbar-collapse justify-content-center">
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="{% url 'criancas' %}">Crianças</a></li>
