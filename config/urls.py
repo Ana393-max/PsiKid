@@ -10,10 +10,10 @@ urlpatterns = [
     path('criancas/', views.crianca, name='criancas'), 
     path('diagnosticos/', views.diagnostico, name='diagnosticos'),
     path('sessoes/', views.sessao, name='sessoes'),
-    path('transtornos/', views.lista_transtornos, name='lista_transtornos'),
-    path('historicos/', views.historico, name='historicos'),
+    path('transtornos/', views.lista_transtornos, name='lista_transtornos'),  # alterado
+    path('consultas/', views.consulta, name='historicos'),  # alterado para bater com o template
     path('responsaveis/', views.responsavel, name='responsaveis'),
     path('alertas/', views.alerta, name='alertas'),
-    path('alertas-responsavel/', views.alerta_responsavel, name='alertas_responsavel'),
+    path('visualizacoes/', views.visualizacao_alertas, name='visualizacoes'),
     path('relatorios-clinicos/', views.relatorio_clinico, name='relatorios_clinicos'),
 ]
