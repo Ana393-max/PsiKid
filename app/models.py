@@ -15,18 +15,6 @@ class Pessoa(models.Model):
     def __str__(self):
         return self.nome
 
-
-# -------------------------
-# RF04 - Ocupação (para profissionais)
-# -------------------------
-class Ocupacao(models.Model):
-    nome = models.CharField(max_length=100)
-    descricao = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.nome
-
-
 # -------------------------
 # RF03 - Responsável (herda de Pessoa)
 # -------------------------
@@ -60,9 +48,15 @@ class Crianca(Pessoa):
 # -------------------------
 # RF03 extra - Profissional (herda de Pessoa)
 # -------------------------
-class Profissional(Pessoa):
-    ocupacao = models.ForeignKey(Ocupacao, on_delete=models.CASCADE)
+class Profissional(models.Model):
+    nome = models.CharField(max_length=100)
+    data_nasc = models.DateField()
+    ocupacao = models.CharField(max_length=100)  # campo de texto simples
+    email = models.EmailField(blank=True, null=True)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.nome} - {self.ocupacao}"
 
 # -------------------------
 # RF01 - Usuário

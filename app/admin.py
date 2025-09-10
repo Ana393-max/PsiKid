@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Profissional, Crianca, Responsavel, Transtorno, Diagnostico,
-    Sessao, Consulta, Alerta, Visualizacao, RelatorioClinico, Ocupacao, Usuario, Acesso
+    Sessao, Alerta, Visualizacao, RelatorioClinico, Usuario, Acesso
 )
 
 # ---------------------
@@ -34,8 +34,9 @@ class CriancaAdmin(admin.ModelAdmin):
 
 @admin.register(Profissional)
 class ProfissionalAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'email', 'telefone', 'data_nasc', 'ocupacao']  # corrigido data_nascimento -> data_nasc
-    search_fields = ['nome', 'email']
+    list_display = ['nome', 'email', 'telefone', 'data_nasc', 'ocupacao']
+    search_fields = ['nome', 'email', 'ocupacao']
+
 
 @admin.register(Responsavel)
 class ResponsavelAdmin(admin.ModelAdmin):
@@ -71,11 +72,6 @@ class VisualizacaoAdmin(admin.ModelAdmin):
 class RelatorioClinicoAdmin(admin.ModelAdmin):
     list_display = ['crianca', 'profissional', 'data_geracao']
     search_fields = ['crianca__nome', 'profissional__nome']
-
-@admin.register(Ocupacao)
-class OcupacaoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'descricao']
-    search_fields = ['nome']
 
 # ---------------------
 # Ajuste para Usuario e Acesso

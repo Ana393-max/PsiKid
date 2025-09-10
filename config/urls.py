@@ -7,11 +7,11 @@ urlpatterns = [
     
     # Rotas das páginas personalizadas
     path('profissionais/', views.profissional, name='profissional'),
-    path('criancas/', views.crianca, name='criancas'), 
+    path('criancas/', views.crianca, name='criancas'),
     path('diagnosticos/', views.diagnostico, name='diagnosticos'),
     path('sessoes/', views.sessao, name='sessoes'),
-    path('transtornos/', views.lista_transtornos, name='lista_transtornos'),  # alterado
-    path('consultas/', views.consulta, name='historicos'),  # alterado para bater com o template
+    path('transtornos/', views.lista_transtornos, name='lista_transtornos'),
+    path('historicos/', views.historico, name='historicos'),  # agora está certo!
     path('responsaveis/', views.responsavel, name='responsaveis'),
     path('alertas/', views.alerta, name='alertas'),
     path('visualizacoes/', views.visualizacao_alertas, name='visualizacoes'),
