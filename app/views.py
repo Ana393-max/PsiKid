@@ -4,7 +4,22 @@ from .models import (
     Responsavel, Profissional,
     Alerta, Consulta, Visualizacao, RelatorioClinico
 )
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
+def index(request):  # view para login
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        # se seu User usa username, tem que autenticar com username:
+        user = authenticate(request, username=email, password=senha)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # redireciona após login
+        else:
+            messages.error(request, 'E-mail ou senha inválidos.')
+    return render(request, 'login.html')
 # -------------------------
 # Página inicial do profissional
 # -------------------------

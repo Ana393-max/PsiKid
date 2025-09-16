@@ -4,7 +4,7 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+     path('login/', views.index, name='login'),   # mostra e processa o login
     # Rotas das páginas personalizadas
     path('profissionais/', views.profissional, name='profissional'),
     path('criancas/', views.crianca, name='criancas'),

@@ -37,14 +37,14 @@ class Responsavel(Pessoa):
 # -------------------------
 # RF03 - Criança (herda de Pessoa)
 # -------------------------
-class Crianca(Pessoa):
-    data_cadastro = models.DateField(auto_now_add=True)
-    historico_situacao = models.TextField(blank=True, null=True)
-    responsavel = models.ForeignKey(
-        Responsavel, on_delete=models.CASCADE, related_name="criancas"
-    )
+class Crianca(models.Model):
+    nome = models.CharField(max_length=100)
+    data_nascimento = models.DateField()
+    responsavel = models.ForeignKey('Responsavel', on_delete=models.CASCADE)  # relação com o responsável
 
-
+    def __str__(self):
+        return self.nome
+    
 # -------------------------
 # RF03 extra - Profissional (herda de Pessoa)
 # -------------------------

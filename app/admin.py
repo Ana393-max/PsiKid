@@ -24,7 +24,7 @@ class RelatorioClinicoInline(admin.TabularInline):
 # ---------------------
 @admin.register(Crianca)
 class CriancaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'data_nasc', 'responsavel']  # corrigido data_nascimento -> data_nasc
+    list_display = ['nome', 'data_nascimento', 'responsavel']  # corrigido data_nascimento -> data_nasc
     search_fields = ['nome', 'responsavel__nome']
     inlines = [
         DiagnosticoInline,
