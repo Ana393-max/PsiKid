@@ -4,9 +4,12 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path('login/', views.index, name='login'),   # mostra e processa o login
+
+    # Raiz do site exibe o formulário de login
+    path('', views.index, name='index'),  # <-- essa é a alteração principal
+
     # Rotas das páginas personalizadas
-    path('profissionais/', views.profissional, name='profissional'),
+    path('profissionais/', views.profissional, name='profissionais'),
     path('criancas/', views.crianca, name='criancas'),
     path('diagnosticos/', views.diagnostico, name='diagnosticos'),
     path('sessoes/', views.sessao, name='sessoes'),

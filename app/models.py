@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # -------------------------
@@ -19,6 +20,8 @@ class Pessoa(models.Model):
 # RF03 - Responsável (herda de Pessoa)
 # -------------------------
 class Responsavel(Pessoa):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+
     PARENTESCO_CHOICES = [
         ("mae", "Mãe"),
         ("pai", "Pai"),
@@ -33,7 +36,16 @@ class Responsavel(Pessoa):
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     cidade = models.CharField(max_length=100)
 
-
+    def save(self, *args, **kwargs):
+        from django.contrib.auth.models import User
+        if not self.user:
+            # cria um User com CPF como username e senha inicial '123456' (ou qualquer padrão)
+            user = User.objects.create_user(username=self.cpf, password='123456')
+            self.user = user
+        else:
+            self.user.username = self.cpf
+            self.user.save()
+        super().save(*args, **kwargs)
 # -------------------------
 # RF03 - Criança (herda de Pessoa)
 # -------------------------
@@ -49,14 +61,30 @@ class Crianca(models.Model):
 # RF03 extra - Profissional (herda de Pessoa)
 # -------------------------
 class Profissional(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+
     nome = models.CharField(max_length=100)
     data_nasc = models.DateField()
-    ocupacao = models.CharField(max_length=100)  # campo de texto simples
+    cpf = models.CharField(max_length=14, unique=True)  # agora o CPF será usado para login
+    ocupacao = models.CharField(max_length=100)
     email = models.EmailField(blank=True, null=True)
     telefone = models.CharField(max_length=20, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        from django.contrib.auth.models import User
+        if not self.user:
+            # cria um User usando o CPF como username e senha inicial '123456'
+            user = User.objects.create_user(username=self.cpf, password='123456')
+            self.user = user
+        else:
+            # se já existir, garante que o username do User esteja sincronizado com o CPF
+            self.user.username = self.cpf
+            self.user.save()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nome} - {self.ocupacao}"
+
 
 # -------------------------
 # RF01 - Usuário
@@ -67,19 +95,7 @@ class Usuario(models.Model):
     # Substituindo Pessoa abstrato por referência concreta
     profissional = models.ForeignKey(Profissional, on_delete=models.CASCADE, null=True, blank=True)
     responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, null=True, blank=True)
-
-    senha_hash = models.CharField(max_length=128)
     perfil = models.CharField(max_length=20, choices=PERFIL_CHOICES)
-
-
-# -------------------------
-# RF02 - Acesso
-# -------------------------
-class Acesso(models.Model):
-    usuario_perfil = models.CharField(max_length=20)
-    profissional = models.ForeignKey(Profissional, on_delete=models.CASCADE, null=True, blank=True)
-    responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, null=True, blank=True)
-
 
 # -------------------------
 # RF05 - Transtorno

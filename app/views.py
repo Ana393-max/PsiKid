@@ -1,36 +1,62 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from .models import (
     Crianca, Sessao, Diagnostico, Transtorno,
     Responsavel, Profissional,
     Alerta, Consulta, Visualizacao, RelatorioClinico
 )
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
 
-def index(request):  # view para login
+# -------------------------
+# View para login
+# -------------------------
+def index(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        cpf = request.POST.get('cpf')  # campo do form deve ser 'cpf'
         senha = request.POST.get('senha')
-        # se seu User usa username, tem que autenticar com username:
-        user = authenticate(request, username=email, password=senha)
+
+        user = authenticate(request, username=cpf, password=senha)
         if user is not None:
             login(request, user)
-            return redirect('home')  # redireciona após login
+            # Descobre se o user é responsável ou profissional
+            if hasattr(user, 'responsavel'):
+                return redirect('responsavel')
+            elif hasattr(user, 'profissional'):
+                return redirect('profissional')
+            else:
+                messages.warning(request, 'Seu usuário não tem perfil definido.')
+                return redirect('index')  # corrigido aqui
         else:
-            messages.error(request, 'E-mail ou senha inválidos.')
-    return render(request, 'login.html')
+            messages.error(request, 'CPF ou senha inválidos.')
+    return render(request, 'index.html')
+
+
 # -------------------------
 # Página inicial do profissional
 # -------------------------
+@login_required
 def profissional(request):
-    profissionais = Profissional.objects.all()  # passa os profissionais para o template
+    """Página inicial do profissional"""
+    profissionais = Profissional.objects.all()
     return render(request, 'profissional.html', {'profissionais': profissionais})
+
+
+# -------------------------
+# Página inicial do responsável
+# -------------------------
+@login_required
+def responsavel(request):
+    """Página inicial do responsável"""
+    responsaveis = Responsavel.objects.all()
+    return render(request, 'responsavel.html', {'responsaveis': responsaveis})
 
 
 # -------------------------
 # RF03 - Lista de crianças
 # -------------------------
+@login_required
 def crianca(request):
     criancas = Crianca.objects.all()
     return render(request, 'crianca.html', {'criancas': criancas})
@@ -39,6 +65,7 @@ def crianca(request):
 # -------------------------
 # RF06 - Diagnósticos
 # -------------------------
+@login_required
 def diagnostico(request):
     diagnosticos = Diagnostico.objects.all()
     return render(request, 'diagnostico.html', {'diagnosticos': diagnosticos})
@@ -47,6 +74,7 @@ def diagnostico(request):
 # -------------------------
 # RF07 - Sessões
 # -------------------------
+@login_required
 def sessao(request):
     sessoes = Sessao.objects.all()
     return render(request, 'sessao.html', {'sessoes': sessoes})
@@ -55,22 +83,16 @@ def sessao(request):
 # -------------------------
 # RF05 - Tipos de transtornos
 # -------------------------
+@login_required
 def lista_transtornos(request):
     transtornos = Transtorno.objects.all()
     return render(request, 'transtorno.html', {'transtornos': transtornos})
 
 
 # -------------------------
-# RF03 - Responsáveis
-# -------------------------
-def responsavel(request):
-    responsaveis = Responsavel.objects.all()
-    return render(request, 'responsavel.html', {'responsaveis': responsaveis})
-
-
-# -------------------------
 # RF08 - Alertas
 # -------------------------
+@login_required
 def alerta(request):
     alertas = Alerta.objects.all()
     return render(request, 'alerta.html', {'alertas': alertas})
@@ -79,6 +101,7 @@ def alerta(request):
 # -------------------------
 # RF10 - Visualização de alertas
 # -------------------------
+@login_required
 def visualizacao_alertas(request):
     visualizacoes = Visualizacao.objects.all()
     return render(request, 'visualizacao.html', {'visualizacoes': visualizacoes})
@@ -87,6 +110,7 @@ def visualizacao_alertas(request):
 # -------------------------
 # RF09 - Histórico (Consulta)
 # -------------------------
+@login_required
 def historico(request):
     consultas = Consulta.objects.all()
     return render(request, 'historico.html', {'consultas': consultas})
@@ -95,6 +119,7 @@ def historico(request):
 # -------------------------
 # RF11 - Relatórios Clínicos
 # -------------------------
+@login_required
 def relatorio_clinico(request):
     relatorios = RelatorioClinico.objects.all()
     return render(request, 'relatorio_clinico.html', {'relatorios': relatorios})

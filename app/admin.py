@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Profissional, Crianca, Responsavel, Transtorno, Diagnostico,
-    Sessao, Alerta, Visualizacao, RelatorioClinico, Usuario, Acesso
+    Sessao, Alerta, Visualizacao, RelatorioClinico, Usuario
 )
 
 # ---------------------
@@ -34,14 +34,13 @@ class CriancaAdmin(admin.ModelAdmin):
 
 @admin.register(Profissional)
 class ProfissionalAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'email', 'telefone', 'data_nasc', 'ocupacao']
-    search_fields = ['nome', 'email', 'ocupacao']
-
+    list_display = ['nome', 'email', 'telefone', 'data_nasc', 'ocupacao', 'user']  # <-- adicionado user
+    search_fields = ['nome', 'email', 'ocupacao', 'user__username']  # <-- busca pelo username do User
 
 @admin.register(Responsavel)
 class ResponsavelAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'telefone', 'cpf', 'parentesco', 'sexo', 'cidade']  # adicionar campos relevantes
-    search_fields = ['nome', 'cpf']
+    list_display = ['nome', 'telefone', 'cpf', 'parentesco', 'sexo', 'cidade', 'user']  # <-- adicionado user
+    search_fields = ['nome', 'cpf', 'user__username']  # <-- busca pelo username do User
 
 @admin.register(Transtorno)
 class TranstornoAdmin(admin.ModelAdmin):
@@ -74,14 +73,10 @@ class RelatorioClinicoAdmin(admin.ModelAdmin):
     search_fields = ['crianca__nome', 'profissional__nome']
 
 # ---------------------
-# Ajuste para Usuario e Acesso
+# Ajuste para Usuario
 # ---------------------
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ['perfil', 'profissional', 'responsavel']
     search_fields = ['perfil', 'profissional__nome', 'responsavel__nome']
 
-@admin.register(Acesso)
-class AcessoAdmin(admin.ModelAdmin):
-    list_display = ['usuario_perfil', 'profissional', 'responsavel']
-    search_fields = ['usuario_perfil', 'profissional__nome', 'responsavel__nome']
