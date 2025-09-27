@@ -123,3 +123,29 @@ def historico(request):
 def relatorio_clinico(request):
     relatorios = RelatorioClinico.objects.all()
     return render(request, 'relatorio_clinico.html', {'relatorios': relatorios})
+
+# -------------------------
+# Alertas do responsável logado
+# -------------------------
+@login_required
+def alertas_responsavel(request):
+    # Pega o responsável logado
+    usuario_responsavel = request.user.responsavel
+
+    # Filtra apenas os alertas que têm esse responsável como destinatário
+    alertas = Alerta.objects.filter(destinatario=usuario_responsavel)
+
+    return render(request, 'alertas_responsavel.html', {'alertas': alertas})
+
+# -------------------------
+# Histórico (consultas) do responsável logado
+# -------------------------
+@login_required
+def historico_responsavel(request):
+    responsavel = request.user.responsavel
+    # pega apenas as consultas das crianças desse responsável
+    consultas = Consulta.objects.filter(crianca__responsavel=responsavel)
+    return render(request, 'historico_responsavel.html', {
+        'responsavel': responsavel,
+        'consultas': consultas
+    })

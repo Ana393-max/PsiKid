@@ -9,13 +9,15 @@ urlpatterns = [
     path('', views.index, name='index'),  # <-- essa é a alteração principal
 
     # Rotas das páginas personalizadas
-    path('profissionais/', views.profissional, name='profissionais'),
+    path('profissional/', views.profissional, name='profissional'),
     path('criancas/', views.crianca, name='criancas'),
     path('diagnosticos/', views.diagnostico, name='diagnosticos'),
     path('sessoes/', views.sessao, name='sessoes'),
     path('transtornos/', views.lista_transtornos, name='lista_transtornos'),
     path('historicos/', views.historico, name='historicos'),  # agora está certo!
-    path('responsaveis/', views.responsavel, name='responsaveis'),
+    path('responsavel/', views.responsavel, name='responsavel'),
+    path('responsavel/alertas/', views.alertas_responsavel, name='alertas_responsavel'),
+    path('responsavel/historico/', views.historico_responsavel, name='historico_responsavel'),
     path('alertas/', views.alerta, name='alertas'),
     path('visualizacoes/', views.visualizacao_alertas, name='visualizacoes'),
     path('relatorios-clinicos/', views.relatorio_clinico, name='relatorios_clinicos'),
