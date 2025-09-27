@@ -115,31 +115,32 @@
     </div>
   </nav>
 
-  <div class="container-custom">
-  <h2>Alertas cadastrados</h2>
+<div class="container-custom">
+  <h2>Transtornos cadastrados</h2>
   <table class="table table-borderless">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Título</th>
-        <th>Mensagem</th>
-        <th>Detalhes</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Grau de Severidade</th>
       </tr>
     </thead>
     <tbody>
-      {% for alerta in alertas %}
+      {% for transtorno in transtornos %}
       <tr>
-        <td>{{ alerta.id }}</td>
-        <td>{{ alerta.titulo }}</td>
-        <td>{{ alerta.mensagem }}</td>
-        <td><a href="#" class="btn btn-info btn-sm">Ver</a></td>
+        <td>{{ transtorno.id }}</td>
+        <td>{{ transtorno.nome }}</td>
+        <td>{{ transtorno.descricao }}</td>
+        <td>{{ transtorno.grau_severidade }}</td>
       </tr>
       {% empty %}
-      <tr><td colspan="4">Nenhum alerta cadastrado.</td></tr>
+      <tr><td colspan="4">Nenhum transtorno cadastrado.</td></tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

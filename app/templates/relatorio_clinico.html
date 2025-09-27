@@ -86,21 +86,32 @@
     </div>
   </nav>
 
-  <div class="header-title">Relatórios Clínicos</div>
+<div class="header-title">Relatórios Clínicos</div>
 
-  <div class="container-custom">
+<div class="container-custom">
+  {% if relatorios %}
     {% for relatorio in relatorios %}
       <div class="card">
         <p><strong>Criança:</strong> {{ relatorio.crianca.nome }}</p>
-        <p><strong>Data:</strong> {{ relatorio.data }}</p>
-        <p><strong>Descrição:</strong> {{ relatorio.descricao }}</p>
-      </div>
-    {% empty %}
-      <div class="card">
-        <p>Nenhum relatório encontrado.</p>
+        <p><strong>Profissional:</strong> {{ relatorio.profissional.nome }}</p>
+        <p><strong>Data de Geração:</strong> {{ relatorio.data_geracao|date:"d/m/Y" }}</p>
+        <p><strong>Resumo Diagnóstico:</strong> {{ relatorio.resumo_diagnostico }}</p>
+        <p><strong>Resumo Sessões:</strong> {{ relatorio.resumo_sessoes }}</p>
+        {% if relatorio.recomendacoes %}
+          <p><strong>Recomendações:</strong> {{ relatorio.recomendacoes }}</p>
+        {% endif %}
+        {% if relatorio.observacoes %}
+          <p><strong>Observações:</strong> {{ relatorio.observacoes }}</p>
+        {% endif %}
       </div>
     {% endfor %}
-  </div>
+  {% else %}
+    <div class="card">
+      <p>Nenhum relatório encontrado.</p>
+    </div>
+  {% endif %}
+</div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

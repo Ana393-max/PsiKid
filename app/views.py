@@ -115,7 +115,6 @@ def historico(request):
     consultas = Consulta.objects.all()
     return render(request, 'historico.html', {'consultas': consultas})
 
-
 # -------------------------
 # RF11 - Relatórios Clínicos
 # -------------------------
@@ -142,8 +141,10 @@ def alertas_responsavel(request):
 # -------------------------
 @login_required
 def historico_responsavel(request):
+    """
+    Exibe apenas o histórico das crianças do responsável logado.
+    """
     responsavel = request.user.responsavel
-    # pega apenas as consultas das crianças desse responsável
     consultas = Consulta.objects.filter(crianca__responsavel=responsavel)
     return render(request, 'historico_responsavel.html', {
         'responsavel': responsavel,

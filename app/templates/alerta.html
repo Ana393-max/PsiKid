@@ -109,32 +109,37 @@
 
   <div class="header-title">Alertas Gerais</div>
 
-  <div class="container-custom">
-    {% if alertas %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Mensagem</th>
-            <th>Data</th>
-            <th>Responsável</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for alerta in alertas %}
-          <tr>
-            <td>{{ alerta.mensagem }}</td>
-            <td>{{ alerta.data }}</td>
-            <td>{{ alerta.responsavel.nome }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <div class="card mt-4">
-        <p class="mb-0">Nenhum alerta encontrado.</p>
-      </div>
-    {% endif %}
-  </div>
+<div class="container-custom">
+  {% if alertas %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mensagem</th>
+          <th>Data de Envio</th>
+          <th>Responsável</th>
+          <th>Prioridade</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for alerta in alertas %}
+        <tr>
+          <td>{{ alerta.mensagem }}</td>
+          <td>{{ alerta.data_envio|date:"d/m/Y H:i" }}</td>
+          <td>{{ alerta.destinatario.nome }}</td>
+          <td>{{ alerta.prioridade|capfirst }}</td>
+          <td>{{ alerta.tipo|capfirst }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="card mt-4">
+      <p class="mb-0">Nenhum alerta encontrado.</p>
+    </div>
+  {% endif %}
+</div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
