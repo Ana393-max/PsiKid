@@ -141,16 +141,25 @@ def alertas_responsavel(request):
 # -------------------------
 @login_required
 def historico_responsavel(request):
-    responsavel = request.user.responsavel
-    consultas = Consulta.objects.filter(crianca__responsavel=responsavel)
+    # Verifica se o usuário logado é um Responsável
+    if hasattr(request.user, 'responsavel'):
+        responsavel = request.user.responsavel
+        consultas = Consulta.objects.filter(crianca__responsavel=responsavel)
 
-    # adiciona flags para facilitar o template
-    for consulta in consultas:
-        consulta.tem_sessoes = consulta.sessoes.exists()
-        consulta.tem_diagnosticos = consulta.diagnosticos.exists()
+        for consulta in consultas:
+            consulta.sessoes = consulta.sessoes.exists()
+            consulta.diagnosticos = consulta.diagnosticos.exists()
 
-    return render(request, 'historico_responsavel.html', {
-        'responsavel': responsavel,
-        'consultas': consultas
-    })
+        return render(request, 'historico_responsavel.html', {
+            'responsavel': responsavel,
+            'consultas': consultas
+        })
+    else:
+        # Se o usuário não for um responsável, manda pra página dele
+        from django.contrib import messages
+        messages.warning(request, 'Você não tem acesso a essa página.')
+        if hasattr(request.user, 'profissional'):
+            return redirect('profissional')
+        return redirect('index')
+
 

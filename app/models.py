@@ -89,13 +89,17 @@ class Profissional(models.Model):
 # -------------------------
 # RF01 - Usuário
 # -------------------------
-#class Usuario(models.Model):
-   # PERFIL_CHOICES = [("profissional", "Profissional"), ("responsavel", "Responsável")]
+class Usuario(models.Model):
+    PERFIL_CHOICES = [
+        ("profissional", "Profissional"),
+        ("responsavel", "Responsável"),
+    ]
 
     # Substituindo Pessoa abstrato por referência concreta
-    #profissional = models.ForeignKey(Profissional, on_delete=models.CASCADE, null=True, blank=True)
-    #responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, null=True, blank=True)
-    #perfil = models.CharField(max_length=20, choices=PERFIL_CHOICES)
+    profissional = models.ForeignKey(Profissional, on_delete=models.CASCADE, null=True, blank=True)
+    responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, null=True, blank=True)
+    perfil = models.CharField(max_length=20, choices=PERFIL_CHOICES)
+
 
 # -------------------------
 # RF05 - Transtorno
@@ -161,21 +165,21 @@ class Alerta(models.Model):
 # -------------------------
 # RF09 - Histórico de atendimento
 # -------------------------
-#class Consulta(models.Model):
-    #crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE)
-    #sessoes = models.ManyToManyField(Sessao, blank=True)
-    #diagnosticos = models.ManyToManyField(Diagnostico, blank=True)
-
 class Consulta(models.Model):
     crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE)
-    responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, blank=True, null=True)
     sessoes = models.ManyToManyField(Sessao, blank=True)
     diagnosticos = models.ManyToManyField(Diagnostico, blank=True)
 
-    def save(self, *args, **kwargs):
-        if not self.responsavel and self.crianca:
-            self.responsavel = self.crianca.responsavel
-        super().save(*args, **kwargs)
+#class Consulta(models.Model):
+    #crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE)
+    #responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE, blank=True, null=True)
+    #sessoes = models.ManyToManyField(Sessao, blank=True)
+    #diagnosticos = models.ManyToManyField(Diagnostico, blank=True)
+
+    #def save(self, *args, **kwargs):
+        #if not self.responsavel and self.crianca:
+            #self.responsavel = self.crianca.responsavel
+        #super().save(*args, **kwargs)
 
 
 # -------------------------
