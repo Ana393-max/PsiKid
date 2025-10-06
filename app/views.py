@@ -141,12 +141,16 @@ def alertas_responsavel(request):
 # -------------------------
 @login_required
 def historico_responsavel(request):
-    """
-    Exibe apenas o histórico das crianças do responsável logado.
-    """
     responsavel = request.user.responsavel
     consultas = Consulta.objects.filter(crianca__responsavel=responsavel)
+
+    # adiciona flags para facilitar o template
+    for consulta in consultas:
+        consulta.tem_sessoes = consulta.sessoes.exists()
+        consulta.tem_diagnosticos = consulta.diagnosticos.exists()
+
     return render(request, 'historico_responsavel.html', {
         'responsavel': responsavel,
         'consultas': consultas
     })
+

@@ -90,64 +90,69 @@
     </div>
   </nav>
 
-  <div class="header-title">Histórico por Criança</div>
+<div class="header-title">Histórico por Criança</div>
 
- <div class="container-custom">
-    {% if consultas %}
-      <table class="table table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th>Criança</th>
-            <th>Responsável</th>
-            <th>Profissional</th>
-            <th>Data das Sessões</th>
-            <th>Diagnósticos</th>
-            <th>Detalhes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for consulta in consultas %}
-          <tr>
-            <td>{{ consulta.crianca.nome }}</td>
-            <td>{{ consulta.crianca.responsavel.nome }}</td>
-            <td>
-              {% if consulta.sessoes.all %}
-                {% for sessao in consulta.sessoes.all %}
-                  {{ sessao.profissional.nome }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td>
-              {% if consulta.sessoes.all %}
-                {% for sessao in consulta.sessoes.all %}
-                  {{ sessao.data|date:"d/m/Y" }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td>
-              {% if consulta.diagnosticos.all %}
-                {% for diag in consulta.diagnosticos.all %}
-                  {{ diag.transtorno.nome }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td><a href="#" class="btn btn-info btn-sm">Ver</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <div class="card mt-4">
-        <p class="mb-0">Nenhum histórico encontrado.</p>
-      </div>
-    {% endif %}
+<div class="container-custom">
+  {% if consultas %}
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Criança</th>
+          <th>Responsável</th>
+          <th>Profissional</th>
+          <th>Data das Sessões</th>
+          <th>Diagnósticos</th>
+          <th>Detalhes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for consulta in consultas %}
+        <tr>
+          <td>{{ consulta.crianca.nome }}</td>
+          <td>{{ consulta.crianca.responsavel.nome }}</td>
+
+          <td>
+            {% if consulta.tem_sessoes %}
+              {% for sessao in consulta.sessoes.all %}
+                {{ sessao.profissional.nome }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+
+          <td>
+            {% if consulta.tem_sessoes %}
+              {% for sessao in consulta.sessoes.all %}
+                {{ sessao.data|date:"d/m/Y" }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+
+          <td>
+            {% if consulta.tem_diagnosticos %}
+              {% for diag in consulta.diagnosticos.all %}
+                {{ diag.transtorno.nome }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+
+          <td><a href="#" class="btn btn-info btn-sm">Ver</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="card mt-4">
+      <p class="mb-0">Nenhum histórico encontrado.</p>
+    </div>
+  {% endif %}
 </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

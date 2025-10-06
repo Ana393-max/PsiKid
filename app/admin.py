@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Profissional, Crianca, Responsavel, Transtorno, Diagnostico,
-    Sessao, Alerta, Visualizacao, RelatorioClinico, Usuario
+    Sessao, Alerta, Visualizacao, RelatorioClinico, #Usuario
 )
 
 # ---------------------
@@ -75,8 +75,8 @@ class RelatorioClinicoAdmin(admin.ModelAdmin):
 # ---------------------
 # Ajuste para Usuario
 # ---------------------
-@admin.register(Usuario)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['perfil', 'profissional', 'responsavel']
-    search_fields = ['perfil', 'profissional__nome', 'responsavel__nome']
+#@admin.register(Usuario)
+#class UsuarioAdmin(admin.ModelAdmin):
+    #list_display = ['perfil', 'profissional', 'responsavel']
+    #search_fields = ['perfil', 'profissional__nome', 'responsavel__nome']
 
